@@ -15,7 +15,7 @@ public class Main {
         }
     }
 
-    public static void setup() {
+    public static void setup(){
         field = new int[len][wid];
         loop = true;
         for (int l=0; l<10; l++) place(1);
@@ -86,7 +86,42 @@ public class Main {
 
     public static void round4() {
         //TODO: Larven-Behaviour hinzufügen
+        for (int i=0; i<len; i++) {
+            for (int j=0; j<wid; j++) {
+                if (field[i][j] == 4) {
+                    moveLarve(i, j);
+                }
+            }
+        }
+    }
 
+    public static void moveLarve(int i, int j) {
+        if (i>0 && (field[i-1][j] == 1)) {
+            field[i-1][j] = 4;
+
+        } else if (i<len-1 && field[i+1][j] == 1) {
+            field[i+1][j] = 4;
+
+        } else if (j>0 && field[i][j-1] == 1) {
+            field[i][j-1] = 4;
+
+        } else if (j<wid-1 && field[i][j+1] == 1) {
+            field[i][j+1] = 4;
+
+        } else if (i>0 && field[i-1][j] == 3) {
+            field[i-1][j] = 4;
+
+        } else if (i<len-1 && field[i+1][j] == 3) {
+            field[i+1][j] = 4;
+
+        } else if (j>0 && field[i][j-1] == 3) {
+            field[i][j-1] = 4;
+
+        } else if (j<wid-1 && field[i][j+1] == 3) {
+            field[i][j+1] = 4;
+
+        }
+        field[i][j] = 0;
     }
 
     public static void round5() {
