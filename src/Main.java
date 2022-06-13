@@ -7,15 +7,17 @@ public class Main {
     static int wid = 6;
     static boolean loop;
 
-    public static void main(String[] args) throws Exception{
-        System.out.println("Hello world!");
-        setup();
-        for (int r=0; r<10; r++) {
-            generation();
+    public static void main(String[] args) throws Exception {
+        for (int durchgang=0; durchgang<30; durchgang++) {
+            setup();
+            for (int gen = 0; gen < 20; gen++) {
+                generation(gen);
+            }
+            DBAccess.insert();
         }
     }
 
-    public static void setup(){
+    public static void setup() {
         field = new int[len][wid];
         loop = true;
         for (int l=0; l<10; l++) place(1);
@@ -32,13 +34,13 @@ public class Main {
         return count;
     }
 
-    public static void generation() throws Exception{
+    public static void generation(int gen) throws Exception{
         round1();
         round2();
         round3();
         round4();
         round5();
-        round6();
+        round6(gen);
     }
 
     public static void round1() {
@@ -134,10 +136,10 @@ public class Main {
         }
     }
 
-    public static void round6() throws Exception{
-        DBAccess.insert(anzahl(2), anzahl(1),
+    public static void round6(int gen) throws Exception{
+        DBAccess.insert(gen, anzahl(2), anzahl(1),
                 anzahl(3), anzahl(4) , anzahl(5));
-        ausgabe();
+        //ausgabe();
     }
 
     public static void ausgabe() {
@@ -145,3 +147,6 @@ public class Main {
         System.out.println("\n");
     }
 }
+
+//TODO: Abbruch, wenn eine Spezies ausgelöscht ist
+//TODO: Abbruch, wenn das gesamte Feld voll ist und das Einfügen zu einer Endlos-Schleife führen würde
